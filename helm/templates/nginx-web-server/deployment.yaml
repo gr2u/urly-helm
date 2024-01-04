@@ -36,7 +36,13 @@ spec:
           ports:
             - containerPort: 80
               protocol: TCP
-          resources: {}
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "0.5"
+            limits:
+              memory: "512Mi"
+              cpu: "0.5"
           volumeMounts:
             - name: index-html-volume
               mountPath: /usr/share/nginx/html/index.html

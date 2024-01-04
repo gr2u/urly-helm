@@ -21,6 +21,13 @@ spec:
           ports:
             - name: redis
               containerPort: 6379
+              resources:
+                requests:
+                  memory: "1Gi"
+                  cpu: "1"
+                limits:
+                  memory: "1Gi"
+                  cpu: "1"
           livenessProbe:
             tcpSocket:
               port: 6379

@@ -96,7 +96,13 @@ spec:
         args: ["app.py"]          
         ports:
         - containerPort: 5000
-        resources: {}
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "0.5"
+          limits:
+            memory: "512Mi"
+            cpu: "0.5"
         imagePullPolicy: Always
       imagePullSecrets:
       - name: ghcr
