@@ -1,3 +1,10 @@
+## [1.0.5](https://github.com/gr2u/urly-helm/compare/v1.0.4...v1.0.5) (2024-01-04)
+
+
+### Bug Fixes
+
+* **releaserc:** changed helm-docs parameters ([e38d3fa](https://github.com/gr2u/urly-helm/commit/e38d3fa0fd82bbbd939aca37a4b3182428edda54))
+
 ## [1.0.4](https://github.com/gr2u/urly-helm/compare/v1.0.3...v1.0.4) (2024-01-04)
 
 
