@@ -1,6 +1,6 @@
 # urly
 
-![Version: 1.0.7](https://img.shields.io/badge/Version-1.0.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.0.1](https://img.shields.io/badge/AppVersion-0.0.1-informational?style=flat-square)
+![Version: 1.0.8](https://img.shields.io/badge/Version-1.0.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.0.1](https://img.shields.io/badge/AppVersion-0.0.1-informational?style=flat-square)
 
 A Helm chart for urly app
 
@@ -8,7 +8,7 @@ A Helm chart for urly app
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| cloudProvider | string | `"gcp"` | Cloud provider type (e.g., gcp, aws, azure), it's for different settings for ingress controller and annotations at cloud providers. |
+| cloudProvider | string | `"gcp"` | Cloud provider type (e.g., gcp, aws, azure) This parameter specifies which cloud provider to use; different providers use different settings for the Ingress controller. |
 | fullnameOverride | string | `""` | Override the full name of the chart |
 | gcp.annotations."cert-manager.io/issuer" | string | `"letsencrypt-production"` | Cert issuer |
 | gcp.annotations."kubernetes.io/ingress.allow-http" | string | `"true"` |  |

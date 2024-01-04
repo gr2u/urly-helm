@@ -1,3 +1,11 @@
+## [1.0.8](https://github.com/gr2u/urly-helm/compare/v1.0.7...v1.0.8) (2024-01-04)
+
+
+### Bug Fixes
+
+* **releaserc:** Changed pack step ([db03a4e](https://github.com/gr2u/urly-helm/commit/db03a4ef5d8b381db1c1cc4f15e72b31178e86b9))
+* **values:** Changed description comments ([7ae9069](https://github.com/gr2u/urly-helm/commit/7ae9069f2643331e42c43675c3e4f96be7ab3dcc))
+
 ## [1.0.7](https://github.com/gr2u/urly-helm/compare/v1.0.6...v1.0.7) (2024-01-04)
 
 
