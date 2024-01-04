@@ -1,3 +1,10 @@
+## [1.0.11](https://github.com/gr2u/urly-helm/compare/v1.0.10...v1.0.11) (2024-01-04)
+
+
+### Bug Fixes
+
+* **helm:** web-server deployment ([64a5c5e](https://github.com/gr2u/urly-helm/commit/64a5c5ed2ec0f69a36dc0e6844e40ed0d9440ff7))
+
 ## [1.0.10](https://github.com/gr2u/urly-helm/compare/v1.0.9...v1.0.10) (2024-01-04)
 
 
