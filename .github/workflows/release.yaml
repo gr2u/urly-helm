@@ -36,6 +36,3 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.PRIVATE_ACCESS_TOKEN }}
           REGISTRY_USERNAME: ${{ secrets.REGISTRY_USERNAME }}
           REGISTRY_PASSWORD: ${{ secrets.PRIVATE_ACCESS_TOKEN }}   
-      - name: run helm-docs
-        run: |
-          helm-docs ./helm -o ../README.md --log-level "debug"

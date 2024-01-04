@@ -28,27 +28,34 @@ mysql:
 
 # Redis configuration
 redis:
-  pullPolicy: "IfNotPresent"  # Image pull policy for Redis
+  # -- Image pull policy for Redis
+  pullPolicy: "IfNotPresent"
   # -- Password for Redis 
   password: ""  
 
 # Urly web server configuration
 urlyWebServer:
   image:
+    # -- web server repo
     repository: "ghcr.io/gr2u/url-cut-web-server"
     # -- web server  image tag
     tag: ""
-    pullPolicy: "IfNotPresent"  # Image pull policy for the web server
+    # -- Image pull policy for the web server
+    pullPolicy: "IfNotPresent"  
 
 # Urly API server configuration
 urlyApiServer:
   # -- ingress host name and app_host for short url prefix hostname
-  appHost: "gr2u.xyz"  
-  replicas: 3  # Number of replicas for the API server
+  appHost: "gr2u.xyz"
+  # -- Number of replicas for the API server
+  replicas: 3  
   image:
-    repository: "ghcr.io/gr2u/url-cut-api-server" # API server image repository
-    tag: "0.0.25-dev"  # API server image tag
-    pullPolicy: "IfNotPresent"  # Image pull policy for the API server
+    # -- API server image repository
+    repository: "ghcr.io/gr2u/url-cut-api-server" 
+    # -- API server image tag
+    tag: "0.0.25-dev" 
+    # -- Image pull policy for the API server
+    pullPolicy: "IfNotPresent"  
 
 # Select cloud provider 
 # -- Cloud provider type (e.g., gcp, aws, azure), it's for different settings for ingress controller and annotations at cloud providers.
