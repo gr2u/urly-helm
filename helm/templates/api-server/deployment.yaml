@@ -1,0 +1,117 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "urly.fullname" . }}-api-server
+  labels:
+    {{- include "urly.api-server.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.urlyApiServer.replicas }}
+  selector:
+    matchLabels:
+      {{- include "urly.api-server.labels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "urly.api-server.labels" . | nindent 8 }}
+    spec:
+      initContainers:
+      - name: waiting-redis
+        image: busybox:1.31
+        command: ['sh', '-c', 'for i in {1..200}; do sleep 2; if nc -vz ${REDIS_HOST} 6379; then exit 0; fi; done; exit 1']
+        env:
+          - name: REDIS_HOST
+            value: {{ template "urly.redis.host" . }}      
+      - name: waiting-mysql
+        image: busybox:1.31
+        command: ['sh', '-c', 'for i in {1..200}; do sleep 2; if nc -vz ${MYSQL_HOST} 3306; then exit 0; fi; done; exit 1']
+        env:
+          - name: MYSQL_HOST
+            value: {{ template "urly.mysql.host" . }}
+      - name: db-init
+        env:
+        - name: REDIS_HOST
+          value: {{ template "urly.redis.host" . }}
+        - name: REDIS_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ template "urly.redis" . }}
+              key: REDIS_PASSWORD
+        - name: MYSQL_HOST
+          value: {{ template "urly.mysql.host" . }}
+        - name: MYSQL_USER
+          value: {{ template "urly.mysql.username" . }}
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ template "urly.mysql" . }}
+              key: MYSQL_PASSWORD
+        - name: MYSQL_DATABASE
+          value: {{ template "urly.mysql.database" . }}
+        image: {{ .Values.urlyApiServer.image.repository }}:{{
+          .Values.urlyApiServer.image.tag }}
+        imagePullPolicy: Always
+        command: ["python"]
+        args: ["app.py", "init_db"]
+      containers:
+      - name: urly-api-server
+        env:
+        - name: REDIS_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: {{ template "urly.redis" . }}
+              key: REDIS_HOST         
+        - name: REDIS_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ template "urly.redis" . }}
+              key: REDIS_PASSWORD
+        - name: APP_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: {{ template "urly.api-server" . }}
+              key: APP_HOST
+        - name: MYSQL_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: {{ template "urly.mysql.host" . }}
+              key: MYSQL_HOST
+        - name: MYSQL_DATABASE
+          valueFrom:
+            configMapKeyRef:
+              name: {{ template "urly.mysql.host" . }}
+              key: MYSQL_DATABASE
+        - name: MYSQL_USER
+          valueFrom:
+            configMapKeyRef:
+              name: {{ template "urly.mysql" . }}
+              key: MYSQL_USER
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ template "urly.mysql" . }}
+              key: MYSQL_PASSWORD
+        image: {{ .Values.urlyApiServer.image.repository }}:{{
+          .Values.urlyApiServer.image.tag }}
+        command: ["python"]
+        args: ["app.py"]          
+        ports:
+        - containerPort: 5000
+        resources: {}
+        imagePullPolicy: Always
+      imagePullSecrets:
+      - name: ghcr
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: app.kubernetes.io/component
+                    operator: In
+                    values:
+                      - urly-api-server
+              topologyKey: kubernetes.io/hostname
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%

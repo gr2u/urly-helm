@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "urly.mysql" . }}-config
+  labels: 
+    {{- include "urly.mysql.labels" . | nindent 4 }}
+data:
+  MYSQL_USER: {{ template "urly.mysql.username" . }}
+  MYSQL_DATABASE: {{ template "urly.mysql.database" . }}
+  MYSQL_HOST: {{ template "urly.mysql.host" . }}

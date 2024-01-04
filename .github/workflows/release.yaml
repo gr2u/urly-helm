@@ -1,0 +1,60 @@
+name: Release
+on:
+  push:
+    branches:
+      - 'main'
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.PRIVATE_ACCESS_TOKEN }}
+          submodules: recursive
+      
+
+      - name: install helm-docs
+        run: |
+          cd /tmp
+          wget https://github.com/norwoodj/helm-docs/releases/download/v${{env.HELM_DOCS_VERSION}}/helm-docs_${{env.HELM_DOCS_VERSION}}_Linux_x86_64.tar.gz
+          tar -xvf helm-docs_${{env.HELM_DOCS_VERSION}}_Linux_x86_64.tar.gz
+          sudo mv helm-docs /usr/local/sbin
+        env:
+          HELM_DOCS_VERSION: "1.7.0"
+
+      - name: run helm-docs
+        run: |
+          helm-docs ./helm -o ../README.md --log-level "debug"
+      - name: pwd ls
+        run: |
+          pwd
+          ls -la
+      
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+   
+      - name: Install dependencies
+        run: npm install
+      
+      - name: Generate release
+        run: npx semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.PRIVATE_ACCESS_TOKEN }}
+          REGISTRY_USERNAME: ${{ secrets.REGISTRY_USERNAME }}
+          REGISTRY_PASSWORD: ${{ secrets.PRIVATE_ACCESS_TOKEN }}   
+      
+      - name: Run helm lint and registry login
+        shell: bash
+        run: ./.github/scripts/verify.sh
+
+      - name: Packing helm chart and adding repos 
+        shell: bash
+        run: ./.github/scripts/pack.sh
+
+      - name: Publish chart to github image registry
+        shell: bash
+        run: ./.github/scripts/push.sh
+      
+
+       

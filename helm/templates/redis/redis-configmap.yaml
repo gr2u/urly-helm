@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "urly.redis" . }}-config
+  labels: 
+    {{- include "urly.redis.labels" . | nindent 4 }}
+data:
+  REDIS_HOST: {{ template "urly.redis.host" . }}

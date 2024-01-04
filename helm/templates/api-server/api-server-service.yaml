@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "urly.api-server" . }}-service
+  labels:
+    {{- include "urly.api-server.labels" . | nindent 4 }}
+spec:
+  ports:
+    - port: 5000
+  selector:
+    {{- include "urly.api-server.labels" . | nindent 4 }}

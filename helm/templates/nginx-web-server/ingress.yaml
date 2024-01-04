@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  labels: 
+    {{- include "urly.web-server.labels" . | nindent 4 }}
+  name: {{ template "urly.fullname" . }}-ingress
+  annotations:
+    {{- if eq .Values.cloudProvider "gcp" }}
+    {{- toYaml .Values.gcp.annotations | nindent 4 }}
+    {{- end }} 
+spec:
+  {{- if ne .Values.cloudProvider "gcp" }}
+  ingressClassName: "nginx"
+  {{- end }}
+  tls:
+    - secretName: urly-tls
+      hosts:
+        - '{{ .Values.urlyApiServer.appHost }}'
+  defaultBackend:
+    service:
+      name: {{ template "urly.web-server" . }}
+      port:
+        number: 80

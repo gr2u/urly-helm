@@ -1,0 +1,50 @@
+{
+  "branches": [
+    "main"
+  ],
+  "plugins": [
+    [
+      "@semantic-release/commit-analyzer",
+      {
+        "preset": "angular",
+        "releaseRules": "./release-rules.cjs"
+      }
+    ],
+    "@semantic-release/release-notes-generator",
+    "@semantic-release/changelog",
+    [
+      "@semantic-release/github",
+      {
+        "message": "release(version): Release ${nextRelease.version}"
+      }
+    ],
+    [
+      "semantic-release-helm",
+      {
+        "chartPath": "./helm",
+        "onlyUpdateVersion": true
+      }
+    ],
+    [
+      "@semantic-release/exec",
+      {
+        "verifyConditionsCmd": "npm run helm:verify",
+        "prepareCmd": "npm version ${nextRelease.version} --no-git-tag-version  --allow-same-version && npm run helm:pack",
+        "publishCmd": "npm run helm:push"
+      }
+    ],
+    [
+      "@semantic-release/git",
+      {
+        "assets": [
+          "package.json",
+          "package-lock.json",
+          "CHANGELOG.md",
+          "./helm/Chart.yaml",
+          "README.md"
+        ],
+        "message": "release(version): Release ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+      }
+    ]
+  ]
+}

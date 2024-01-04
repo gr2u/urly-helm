@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ template "urly.mysql" . }}
+  labels: 
+    {{- include "urly.mysql.labels" . | nindent 4 }}
+  {{- with .Values.mysql.annotations }}
+  annotations:
+{{- toYaml | indent 4 }}
+  {{- end }}
+spec:
+  serviceName: {{ template "urly.mysql" . }}
+  replicas: 1
+  selector:
+    matchLabels:
+      {{- include "urly.mysql.labels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "urly.mysql.labels" . | nindent 8 }}
+    spec:
+      containers:
+      - name: mysql
+        {{- include "urly.mysql.image" . | nindent 8 }}
+        envFrom:
+          - secretRef:
+              name: "{{ template "urly.mysql" . }}"
+          - configMapRef:
+              name: "{{ template "urly.mysql" . }}"
+        ports:
+        - name: mysql
+          containerPort: 3306
+        livenessProbe:
+          tcpSocket:
+            port: 3306
+          initialDelaySeconds: 300
+          periodSeconds: 10
+        # readinessProbe:
+        #   tcpSocket:
+        #     port: 3306
+        #   initialDelaySeconds: 10
+        #   periodSeconds: 10
+        readinessProbe:
+          exec:
+            command:
+            - sh
+            - -c
+            - "mysqladmin ping -u mysql -p${MYSQL_PASSWORD}"
+          initialDelaySeconds: 5
+          periodSeconds: 2
+          timeoutSeconds: 1        
+        volumeMounts:
+        - name: mysql-persistent-storage
+          mountPath: /usr/mysql
+  volumeClaimTemplates:
+    - metadata:
+        name: mysql-persistent-storage
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 10Gi

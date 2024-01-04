@@ -1,0 +1,55 @@
+# Default values for urly.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# Global settings
+nameOverride: ""  # Override the name of the chart
+fullnameOverride: ""  # Override the full name of the chart
+
+
+imagePullSecrets:
+  - name: "ghcr"  # List of secret names to use for pulling images
+
+
+# MySQL configuration
+mysql:
+  annotations: {}
+  pullPolicy: "IfNotPresent"  # Image pull policy for MySQL
+  username: ""  # Username for MySQL
+  rootPassword: ""  # Root passworCD HE  d for MySQL
+  password: ""  # Password for the MySQL user
+
+# Redis configuration
+redis:
+  pullPolicy: "IfNotPresent"  # Image pull policy for Redis
+  password: ""  # Password for Redis
+
+# Urly web server configuration
+urlyWebServer:
+  image:
+    repository: "ghcr.io/gr2u/url-cut-web-server"
+    tag: ""  # Nginx image tag
+    pullPolicy: "IfNotPresent"  # Image pull policy for the web server
+
+# Urly API server configuration
+urlyApiServer:
+  appHost: "gr2u.xyz"  # ingress host name and app_host for short url prefix hostname
+  replicas: 3  # Number of replicas for the API server
+  image:
+    repository: "ghcr.io/gr2u/url-cut-api-server" # API server image repository
+    tag: "0.0.25-dev"  # API server image tag
+    pullPolicy: "IfNotPresent"  # Image pull policy for the API server
+
+# Select cloud provider 
+cloudProvider: "gcp"  # Cloud provider type (e.g., gcp, aws, azure), it's for different settings for ingress controller and annotations at cloud providers.
+
+# Cloud provider configuration
+gcp: # GCP
+  annotations:
+    kubernetes.io/ingress.class: gce # Using google ingress controller 
+    kubernetes.io/ingress.allow-http: "true"
+    kubernetes.io/ingress.global-static-ip-name: ingress-ip # Static IP name to use with ingress 
+    cert-manager.io/issuer: letsencrypt-production  # Cert issuer
+
+
+

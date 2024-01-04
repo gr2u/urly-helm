@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "urly.api-server" . }}-config
+  labels: 
+    {{- include "urly.api-server.labels" . | nindent 4 }}
+data:
+  APP_HOST: {{ template "urly.api-server.appHost" . }}
