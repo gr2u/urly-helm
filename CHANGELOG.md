@@ -1,3 +1,10 @@
+## [1.0.4](https://github.com/gr2u/urly-helm/compare/v1.0.3...v1.0.4) (2024-01-04)
+
+
+### Bug Fixes
+
+* **workflow:** changed workflow subsequence ([81ad488](https://github.com/gr2u/urly-helm/commit/81ad4880e6ad182333c08441abd8f22cf1fdf945))
+
 ## [1.0.3](https://github.com/gr2u/urly-helm/compare/v1.0.2...v1.0.3) (2024-01-04)
 
 
