@@ -40,9 +40,7 @@ urlyWebServer:
     repository: "ghcr.io/gr2u/url-cut-web-server"
     # -- web server  image tag
     tag: ""
-    # -- Image pull policy for the web server
-    pullPolicy: "IfNotPresent"  
-
+ 
 # Urly API server configuration
 urlyApiServer:
   # -- ingress host name and app_host for short url prefix hostname
