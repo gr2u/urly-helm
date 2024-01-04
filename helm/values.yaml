@@ -39,7 +39,7 @@ urlyWebServer:
     # -- web server repo
     repository: "ghcr.io/gr2u/url-cut-web-server"
     # -- web server  image tag
-    tag: ""
+    tag: "0.0.25-dev"
  
 # Urly API server configuration
 urlyApiServer:

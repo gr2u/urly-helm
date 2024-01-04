@@ -49,7 +49,6 @@ spec:
             - name: nginx-config-volume
               mountPath: /etc/nginx/nginx.conf
               subPath: nginx.conf
-          imagePullPolicy: Always
       restartPolicy: Always
       securityContext: {}
       imagePullSecrets:
