@@ -41,17 +41,5 @@ jobs:
           REGISTRY_USERNAME: ${{ secrets.REGISTRY_USERNAME }}
           REGISTRY_PASSWORD: ${{ secrets.PRIVATE_ACCESS_TOKEN }}   
       
-      - name: Run helm lint and registry login
-        shell: bash
-        run: ./.github/scripts/verify.sh
-
-      - name: Packing helm chart and adding repos 
-        shell: bash
-        run: ./.github/scripts/pack.sh
-
-      - name: Publish chart to github image registry
-        shell: bash
-        run: ./.github/scripts/push.sh
-      
 
        
