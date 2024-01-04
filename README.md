@@ -1,6 +1,6 @@
 # urly
 
-![Version: 1.0.8](https://img.shields.io/badge/Version-1.0.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.0.1](https://img.shields.io/badge/AppVersion-0.0.1-informational?style=flat-square)
+![Version: 1.0.9](https://img.shields.io/badge/Version-1.0.9-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.0.1](https://img.shields.io/badge/AppVersion-0.0.1-informational?style=flat-square)
 
 A Helm chart for urly app
 
@@ -28,7 +28,6 @@ A Helm chart for urly app
 | urlyApiServer.image.repository | string | `"ghcr.io/gr2u/url-cut-api-server"` | API server image repository |
 | urlyApiServer.image.tag | string | `"0.0.25-dev"` | API server image tag |
 | urlyApiServer.replicas | int | `3` | Number of replicas for the API server |
-| urlyWebServer.image.pullPolicy | string | `"IfNotPresent"` | Image pull policy for the web server |
 | urlyWebServer.image.repository | string | `"ghcr.io/gr2u/url-cut-web-server"` | web server repo |
 | urlyWebServer.image.tag | string | `""` | web server  image tag |
 
