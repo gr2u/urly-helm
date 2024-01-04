@@ -30,7 +30,7 @@
       {
         "verifyConditionsCmd": "npm run helm:verify",
         "prepareCmd": "npm version ${nextRelease.version} --no-git-tag-version  --allow-same-version && npm run helm:pack",
-        "addChannelCmd": "helm-docs ./helm -o ../README.md",
+        "addChannelCmd": "helm-docs ./helm -o ../README.md --version ${nextRelease.version}",
         "publishCmd": "npm run helm:push"
       }
     ],
