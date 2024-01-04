@@ -1,3 +1,10 @@
+## [1.0.12](https://github.com/gr2u/urly-helm/compare/v1.0.11...v1.0.12) (2024-01-04)
+
+
+### Bug Fixes
+
+* **scripts:** helm packaging scripts improves ([a3dba79](https://github.com/gr2u/urly-helm/commit/a3dba79e9379691781c2fed425448ebeed3c085a))
+
 ## [1.0.11](https://github.com/gr2u/urly-helm/compare/v1.0.10...v1.0.11) (2024-01-04)
 
 
