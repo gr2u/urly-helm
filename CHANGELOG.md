@@ -1,3 +1,10 @@
+## [1.0.7](https://github.com/gr2u/urly-helm/compare/v1.0.6...v1.0.7) (2024-01-04)
+
+
+### Bug Fixes
+
+* **workflow:** deleted duplicated operations ([c5bc6b3](https://github.com/gr2u/urly-helm/commit/c5bc6b36e326931f24ff57082b88d673f25c7820))
+
 ## [1.0.6](https://github.com/gr2u/urly-helm/compare/v1.0.5...v1.0.6) (2024-01-04)
 
 
