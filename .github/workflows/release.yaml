@@ -25,10 +25,6 @@ jobs:
       - name: run helm-docs
         run: |
           helm-docs ./helm -o ../README.md --log-level "debug"
-      - name: pwd ls
-        run: |
-          pwd
-          ls -la
       
       - uses: actions/setup-node@v3
         with:
