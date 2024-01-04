@@ -25,6 +25,7 @@ data:
             default           1;
         }
 
+
         access_log /var/log/nginx/access.log combined if=$loggable;
         root /usr/share/nginx/html;
         index index.html;
