@@ -58,7 +58,7 @@ urlyApiServer:
     pullPolicy: "IfNotPresent"  
 
 # Select cloud provider 
-# -- Cloud provider type (e.g., gcp, aws, azure), it's for different settings for ingress controller and annotations at cloud providers.
+# -- Cloud provider type (e.g., gcp, aws, azure) This parameter specifies which cloud provider to use; different providers use different settings for the Ingress controller.
 cloudProvider: "gcp"  
 
 # Cloud provider configuration
