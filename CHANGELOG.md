@@ -1,3 +1,10 @@
+## [1.0.6](https://github.com/gr2u/urly-helm/compare/v1.0.5...v1.0.6) (2024-01-04)
+
+
+### Bug Fixes
+
+* **releaserc:** changed semrel exec plugin subsequence ([87228b0](https://github.com/gr2u/urly-helm/commit/87228b0c841495718f14b49668fb0a4e1ce1c677))
+
 ## [1.0.5](https://github.com/gr2u/urly-helm/compare/v1.0.4...v1.0.5) (2024-01-04)
 
 
