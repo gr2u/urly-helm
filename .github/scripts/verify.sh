@@ -1,4 +1,7 @@
 #!/bin/bash
+set -e
+set -o pipefail
+
 export HELM_REGISTRY=$(node -p "require('./package.json').helm.registry");
 echo "::group::Helm install"
 curl -fsSL https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash;
