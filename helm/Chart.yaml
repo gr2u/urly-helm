@@ -4,3 +4,4 @@ description: A Helm chart for urly app
 type: application
 version: 1.0.12
 appVersion: 0.0.1
+home: "https://github.com/gr2u/urly-helm"
