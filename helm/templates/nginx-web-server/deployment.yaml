@@ -5,7 +5,7 @@ metadata:
   labels:
     {{- include "urly.web-server.labels" . | nindent 4 }}
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       {{- include "urly.web-server.labels" . | nindent 6 }}
@@ -42,6 +42,13 @@ spec:
             limits:
               memory: "512Mi"
               cpu: "0.5"
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 2
+            timeoutSeconds: 1             
           volumeMounts:
             - name: index-html-volume
               mountPath: /usr/share/nginx/html/index.html
