@@ -52,7 +52,7 @@ spec:
             command:
             - sh
             - -c
-          - "mysqladmin ping -u ${MYSQL_USER} -p${MYSQL_PASSWORD}"
+            - "mysqladmin ping -u ${MYSQL_USER} -p${MYSQL_PASSWORD}"
           initialDelaySeconds: 30
           periodSeconds: 10
           timeoutSeconds: 1        
