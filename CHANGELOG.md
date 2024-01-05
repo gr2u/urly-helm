@@ -1,3 +1,11 @@
+## [1.0.13](https://github.com/gr2u/urly-helm/compare/v1.0.12...v1.0.13) (2024-01-05)
+
+
+### Bug Fixes
+
+* **helm:** typo ([9f7517c](https://github.com/gr2u/urly-helm/commit/9f7517cd3819d81e812bcf0bff5a5961dfd45ec0))
+* **helm:** unhardcoded mysql username in readinessProbe ([9ed9a89](https://github.com/gr2u/urly-helm/commit/9ed9a89b4cd1a23759c9cc5055e9b7b51f9dc555))
+
 ## [1.0.12](https://github.com/gr2u/urly-helm/compare/v1.0.11...v1.0.12) (2024-01-04)
 
 
