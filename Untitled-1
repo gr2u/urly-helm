@@ -1,0 +1,90 @@
+---
+# Source: urly/templates/nginx-web-server/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: release-name-urly-web-server
+  labels:
+    helm.sh/chart: urly-1.0.9
+    app.kubernetes.io/name: urly
+    app.kubernetes.io/instance: release-name
+    app.kubernetes.io/version: "0.0.1"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: web-server
+    app.kubernetes.io/tier: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      helm.sh/chart: urly-1.0.9
+      app.kubernetes.io/name: urly
+      app.kubernetes.io/instance: release-name
+      app.kubernetes.io/version: "0.0.1"
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/component: web-server
+      app.kubernetes.io/tier: frontend
+  template:
+    metadata:
+      labels:
+        helm.sh/chart: urly-1.0.9
+        app.kubernetes.io/name: urly
+        app.kubernetes.io/instance: release-name
+        app.kubernetes.io/version: "0.0.1"
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/component: web-server
+        app.kubernetes.io/tier: frontend
+    spec:
+      volumes:
+        - name: nginx-config-volume
+          configMap:
+            name: nginx-config
+            items:
+              - key: nginx.conf
+                path: nginx.conf
+            defaultMode: 420
+        - name: index-html-volume
+          configMap:
+            name: index.html
+            items:
+              - key: index.html
+                path: index.html
+            defaultMode: 420
+      containers:
+        - name: urly-web-server
+          image: ghcr.io/gr2u/url-cut-web-server:
+          ports:
+            - containerPort: 80
+              protocol: TCP
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "0.5"
+            limits:
+              memory: "512Mi"
+              cpu: "0.5"
+          volumeMounts:
+            - name: index-html-volume
+              mountPath: /usr/share/nginx/html/index.html
+              subPath: index.html
+            - name: nginx-config-volume
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
+      restartPolicy: Always
+      securityContext: {}
+      imagePullSecrets:
+        - name: ghcr
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: app.kubernetes.io/component
+                    operator: In
+                    values:
+                      - urly-web-server
+              topologyKey: kubernetes.io/hostname
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
