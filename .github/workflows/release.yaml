@@ -28,8 +28,14 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-   
-   
+
+      - name: Test with Checkov
+        id: checkov
+        uses: bridgecrewio/checkov-action@master
+        with:
+          framework: helm
+          directory: helm/
+
       - name: Install dependencies
         run: npm install
       
